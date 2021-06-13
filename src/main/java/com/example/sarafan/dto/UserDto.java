@@ -1,6 +1,8 @@
 package com.example.sarafan.dto;
 
 
+import com.example.sarafan.entity.User;
+
 public class UserDto {
     private Long id;
 
