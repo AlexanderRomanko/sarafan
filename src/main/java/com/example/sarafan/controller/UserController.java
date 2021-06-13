@@ -1,5 +1,6 @@
 package com.example.sarafan.controller;
 
+import com.example.sarafan.dto.UserDto;
 import com.example.sarafan.entity.User;
 import com.example.sarafan.mappers.UserMapper;
 import com.example.sarafan.repository.UserRepository;
@@ -7,6 +8,7 @@ import com.example.sarafan.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -31,14 +33,7 @@ public class UserController {
     }
 
     @GetMapping("{username}")
-    public ResponseEntity show(@PathVariable String username) throws Exception {
-        try {
-
-//            User user =  userRepository.findByUsername(username);
-
-            return ResponseEntity.ok(UserMapper.INSTANCE.toDto(userRepository.findByUsername(username)));
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+    public UserDto show(@PathVariable String username) {
+            return userService.getUser(username);
     }
 }

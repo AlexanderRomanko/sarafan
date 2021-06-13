@@ -24,4 +24,8 @@ public class UserService {
         return UserMapper.INSTANCE.toDto(user);
     }
 
+    public UserDto getUser(String username) {
+        return UserMapper.INSTANCE.toDto(userRepository.findByUsername(username));
+    }
+
 }

@@ -1,8 +1,6 @@
 package com.example.sarafan.dto;
 
 
-import com.example.sarafan.entity.User;
-
 public class UserDto {
     private Long id;
 
@@ -24,11 +22,13 @@ public class UserDto {
         this.username = username;
     }
 
+    public UserDto() {
+    }
+
     public UserDto(Long id, String username) {
-        this.id = id;
+        this. id = id;
         this.username = username;
     }
 
-    public UserDto() {
-    }
+
 }
