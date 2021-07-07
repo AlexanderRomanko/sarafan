@@ -43,4 +43,13 @@ public class Message {
     public void setCreationDate(LocalDateTime creationDate) {
         this.creationDate = creationDate;
     }
+
+    public Message() {
+    }
+
+    public Message(Long id, String text, LocalDateTime creationDate) {
+        this.id = id;
+        this.text = text;
+        this.creationDate = creationDate;
+    }
 }

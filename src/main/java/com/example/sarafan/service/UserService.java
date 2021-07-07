@@ -15,17 +15,17 @@ public class UserService {
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
-
-    public UserDto create(User user) throws UserAlreadyExists {
-        if (userRepository.findByUsername(user.getUsername()) != null) {
-            throw new UserAlreadyExists("User already exists");
-        }
-        userRepository.save(user);
-        return UserMapper.INSTANCE.toDto(user);
-    }
-
-    public UserDto getUser(String username) {
-        return UserMapper.INSTANCE.toDto(userRepository.findByUsername(username));
-    }
+//
+//    public UserDto create(User user) throws UserAlreadyExists {
+//        if (userRepository.findByUsername(user.getUsername()) != null) {
+//            throw new UserAlreadyExists("User already exists");
+//        }
+//        userRepository.save(user);
+//        return UserMapper.INSTANCE.toDto(user);
+//    }
+//
+//    public UserDto getUser(String username) {
+//        return UserMapper.INSTANCE.toDto(userRepository.findByUsername(username));
+//    }
 
 }
