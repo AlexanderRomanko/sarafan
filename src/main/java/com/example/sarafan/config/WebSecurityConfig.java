@@ -2,21 +2,27 @@ package com.example.sarafan.config;
 
 import com.example.sarafan.entity.User;
 import com.example.sarafan.repository.UserRepository;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.oauth2.core.user.OAuth2User;
+import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserRequest;
+import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserService;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
+import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Component;
 
-import java.security.Principal;
 import java.time.LocalDateTime;
 
 
 @Component
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    private final UserRepository userRepository;
+
+    public WebSecurityConfig(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Override
     public void configure(HttpSecurity httpSecurity) throws Exception {
@@ -25,7 +31,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .oauth2Login();
+                .oauth2Login()
+                .userInfoEndpoint().oidcUserService(this.oidcUserService());
 //                .authorizeRequests()
 //                .mvcMatchers("/").permitAll()
 //                .anyRequest().authenticated()
@@ -33,22 +40,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                .csrf().disable();
     }
 
-    @Bean
-    public PrincipalExtractor principalExtractor(UserRepository userRepository) {
-        return map -> {
-            String id = (String) map.get("sub");
-            User user = userRepository.findById(id).orElseGet(() -> {
-                User newUser = new User();
-                newUser.setId(id);
-                newUser.setName((String) map.get("name"));
-                newUser.setEmail((String) map.get("email"));
-                newUser.setGender((String) map.get("gender"));
-                newUser.setLocale((String) map.get("locale"));
-                newUser.setUserpic((String) map.get("picture"));
-                return newUser;
-            });
+
+    private OAuth2UserService<OidcUserRequest, OidcUser> oidcUserService() {
+        return userRequest -> {
+            OidcUser oidcUser = new OidcUserService().loadUser(userRequest);
+            String googleId = (String) oidcUser.getAttributes().get("sub");
+            User user = new User();
+            user.setId(googleId);
+            user.setName(oidcUser.getFullName());
+            user.setUserpic(oidcUser.getPicture());
+            user.setEmail(oidcUser.getEmail());
+            user.setGender(oidcUser.getGender());
+            user.setLocale(oidcUser.getLocale());
             user.setLastVisit(LocalDateTime.now());
-            return userRepository.save(user);
+            userRepository.save(user);
+            return oidcUser;
         };
     }
 
