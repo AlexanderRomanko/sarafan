@@ -9,17 +9,17 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/users")
 public class UserController {
 
-//    private final UserService userService;
-//
-//    public UserController(UserService userService) {
-//        this.userService = userService;
-//    }
-//
-//    @GetMapping
-//    public String greeting() {
-//        return "Hello, guest!";
-//    }
-//
+    private final UserService userService;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+
+    @GetMapping
+    public String greeting() {
+        return "Hello, guest!";
+    }
+
 //    @GetMapping("{username}")
 //    public String show(@PathVariable String username) {
 //            return String.valueOf(userService.getUser(username));

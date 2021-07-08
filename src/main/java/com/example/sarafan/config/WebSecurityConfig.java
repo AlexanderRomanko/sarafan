@@ -28,18 +28,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .antMatcher("/**").authorizeRequests()
-                .antMatchers("/").permitAll()
+                .antMatchers("/", "/login**", "/js/**", "/error**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .oauth2Login()
                 .userInfoEndpoint().oidcUserService(this.oidcUserService());
-//                .authorizeRequests()
-//                .mvcMatchers("/").permitAll()
-//                .anyRequest().authenticated()
 //                .and()
 //                .csrf().disable();
     }
-
 
     private OAuth2UserService<OidcUserRequest, OidcUser> oidcUserService() {
         return userRequest -> {
