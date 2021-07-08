@@ -1,5 +1,7 @@
 package com.example.sarafan.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -13,6 +15,7 @@ public class User {
     private String email;
     private String gender;
     private String locale;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime lastVisit;
 
     public String getId() {

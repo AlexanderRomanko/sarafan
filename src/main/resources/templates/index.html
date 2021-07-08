@@ -7,10 +7,28 @@
     <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.3"></script>
     <script th:inline="javascript">
         var frontendData = [[${frontendData}]];
+        // var frontendData = [(${frontendData})];
+    </script>
+    <script th:inline="javascript">
+        var logout = function() {
+                $.post("/logout", function() {
+                    $("#user").html('');
+                    $(".unauthenticated").show();
+                    $(".authenticated").hide();
+                })
+                return true;
+            }
     </script>
 </head>
 <body>
     <h3>Sarafan</h3>
+    <div class="container authenticated">
+        Logged in as: <span id="user"></span>
+        <div>
+            <button onClick="logout()" class="btn btn-primary">Logout</button>
+        </div>
+    </div>
+
     <div id="app">{{message}}</div>
     <script src="/js/main.js"></script>
 </body>
