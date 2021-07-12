@@ -1,22 +1,37 @@
 <template>
     <div style="position: relative; width: 300px">
 <!--        <message-form :messages="messages" :messageAttr="message"></message-form>-->
-<!--        <message-row v-for="message in messages" :key="message.id" :message="message"-->
-<!--                     :editMethod="editMethod" :messages="messages"></message-row>-->
+        <message-row v-for="message in messages"
+                     :key="message.id"
+                     :message="message"
+                     :editMessage="editMessage"
+                     :deleteMessage="deleteMessage"
+                     :messages="messages"></message-row>
     </div>
 </template>
 
 <script>
+    import MessageRow from 'components/messages/MessageRow.vue'
     export default {
         props: ['messages'],
+        components: {
+            MessageRow
+        },
         data() {
             return {
                 message: null
             }
         },
         methods: {
-            editMethod(message) {
+            editMessage(message) {
                 this.message = message
+            },
+            deleteMessage(message) {
+                this.$resource('/message{/id}').remove({id: message.id}).then(result => {
+                    if (result.ok) {
+                        this.messages.splice(this.messages.indexOf(message), 1)
+                    }
+                })
             }
         }
     }
