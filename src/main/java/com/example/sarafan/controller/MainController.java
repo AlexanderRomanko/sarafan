@@ -1,6 +1,7 @@
 package com.example.sarafan.controller;
 
 import com.example.sarafan.repository.MessageRepository;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,8 @@ import java.util.HashMap;
 @Controller
 @RequestMapping("/")
 public class MainController {
+    @Value("${spring.profiles.active}")
+    private String profile;
 
     private final MessageRepository messageRepository;
 
@@ -26,6 +29,7 @@ public class MainController {
         data.put("profile", oAuth2User);
         data.put("messages", messageRepository.findAll());
         model.addAttribute("frontendData", data);
+        model.addAttribute("isDevMode", "dev".equals(profile));
         return "index";
     }
 }
