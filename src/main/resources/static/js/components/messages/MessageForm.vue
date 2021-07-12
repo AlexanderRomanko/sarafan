@@ -7,7 +7,7 @@
 
 <script>
     function getIndex(list, id) {
-        for (var i = 0; i < list.length; i++) {
+        for (let i = 0; i < list.length; i++) {
             if (list[i].id === id) {
                 return i
             }
@@ -38,7 +38,8 @@
                             this.messages.splice(index, 1, data)
                             this.text = ''
                             this.id = ''
-                        }))
+                        })
+                    )
                 } else {
                     this.$resource('/message{/id}').save({}, message).then(result =>
                         result.json().then(data => {
