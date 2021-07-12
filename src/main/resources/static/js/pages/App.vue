@@ -5,7 +5,7 @@
         </div>
         <div v-else>
             <div>{{profile.attributes.name}}&nbsp;<a href="/logout">Logout</a> </div>
-                   <messages-list :messages="messages"></messages-list>
+            <messages-list :messages="messages"></messages-list>
         </div>
     </div>
 </template>
