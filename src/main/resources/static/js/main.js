@@ -79,39 +79,4 @@ Vue.component('message-row', {
         }
     }
 });
-
-Vue.component('messages-list', {
-    props: ['messages'],
-    data: function () {
-        return {
-            message: null
-        }
-    },
-    template:
-        '<div style="position: relative; width: 300px">' +
-        '<message-form :messages="messages" :messageAttr="message"/>' +
-        '<message-row v-for="message in messages" :key="message.id" :message="message"' +
-        ' :editMethod="editMethod" :messages="messages"/>' +
-        '</div>',
-    methods: {
-        editMethod: function (message) {
-            this.message = message;
-        }
-    }
-});
-
-var app = new Vue({
-    el: '#app',
-    template:
-        '<div>' +
-            '<div v-if="!profile">You need to authorize with <a href="/login">Google</a></div>' +
-            '<div v-else>' +
-                '<div>{{profile.attributes.name}}&nbsp;<a href="/logout">Logout</a> </div>' +
-                '<messages-list :messages="messages"/>' +
-            '</div>' +
-        '</div>',
-    data: {
-        messages: frontendData.messages,
-        profile: frontendData.profile
-    }
-});*/
+*/

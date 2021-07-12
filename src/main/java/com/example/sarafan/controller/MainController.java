@@ -14,10 +14,11 @@ import java.util.HashMap;
 @Controller
 @RequestMapping("/")
 public class MainController {
-    @Value("${spring.profiles.active}")
-    private String profile;
 
     private final MessageRepository messageRepository;
+
+    @Value("${spring.profiles.active}")
+    private String profile;
 
     public MainController(MessageRepository messageRepository) {
         this.messageRepository = messageRepository;

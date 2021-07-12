@@ -1,7 +1,6 @@
 {
   "name": "sarafan",
   "version": "1.0.0",
-  "description": "",
   "main": "webpack.config.js",
   "dependencies": {
     "vue": "^2.5.17",
@@ -20,11 +19,15 @@
   "scripts": {
     "start": "webpack-dev-server"
   },
-  "repository": "git+https://github.com/AlexanderRomanko/sarafan.git",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlexanderRomanko/sarafan.git"
+  },
   "author": "sanch <alexander.romanko.job@gmail.com>",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/AlexanderRomanko/sarafan/issues"
   },
-  "homepage": "https://github.com/AlexanderRomanko/sarafan#readme"
+  "homepage": "https://github.com/AlexanderRomanko/sarafan#readme",
+  "description": ""
 }
