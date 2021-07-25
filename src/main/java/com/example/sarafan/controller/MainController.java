@@ -27,8 +27,10 @@ public class MainController {
     @GetMapping
     public String main(@AuthenticationPrincipal OAuth2User oAuth2User, Model model) {
         HashMap<Object, Object> data = new HashMap<>();
-        data.put("profile", oAuth2User);
-        data.put("messages", messageRepository.findAll());
+        if (oAuth2User != null) {
+            data.put("profile", oAuth2User);
+            data.put("messages", messageRepository.findAll());
+        }
         model.addAttribute("frontendData", data);
         model.addAttribute("isDevMode", "dev".equals(profile));
         return "index";

@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="main-app">
         <div v-if="!profile">You need to authorize with
             <a href="/login">Google</a>
         </div>
@@ -15,6 +15,7 @@
     import {addHandler} from 'util/ws'
     import {getIndex} from 'util/collections'
 
+            // let frontendData = indexedDB
     export default {
         components: {
             MessagesList
@@ -28,7 +29,7 @@
         created() {
             addHandler(data => {
                let index = getIndex(this.messages, data.id)
-                if (index > 1) {
+                if (index > -1) {
                     this.messages.splice(index, 1, data)
                 } else {
                     this.messages.push(data)
