@@ -11,9 +11,8 @@ export function connect() {
     //     return socket;
     // })
     // stompClient.reconnect_delay = 5000
-    // stompClient.debug = () => {}
+    stompClient.debug = () => {}
     stompClient.connect({}, frame => {
-        console.log('Connected: ' + frame)
         stompClient.subscribe('/topic/activity', message => {
             handlers.forEach(handler => handler(JSON.parse(message.body)))
         })
