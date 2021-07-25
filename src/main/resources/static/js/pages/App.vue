@@ -1,13 +1,22 @@
 <template>
-    <div class="main-app">
-        <div v-if="!profile">You need to authorize with
-            <a href="/login">Google</a>
-        </div>
-        <div v-else>
-            <div>{{profile.attributes.name}}&nbsp;<a href="/logout">Logout</a> </div>
-            <messages-list :messages="messages"></messages-list>
-        </div>
-    </div>
+    <v-app>
+        <v-app-bar app>
+            <v-toolbar-title>Sarafan</v-toolbar-title>
+            <v-spacer></v-spacer>
+            <span v-if="profile">{{profile.attributes.name}}</span>
+            <v-btn v-if="profile" icon href="/logout">
+                <v-icon>mdi-logout</v-icon>
+            </v-btn>
+        </v-app-bar>
+        <v-main>
+            <v-container v-if="!profile">You need to authorize with
+                <a href="/login">Google</a>
+            </v-container>
+            <v-container v-if="profile">
+                <messages-list :messages="messages"></messages-list>
+            </v-container>
+        </v-main>
+    </v-app>
 </template>
 
 <script>
