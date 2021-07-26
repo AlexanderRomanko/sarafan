@@ -3,7 +3,8 @@
         <v-text-field
                 label="New message"
                 placeholder="Write something"
-                v-model="text"/>
+                v-model="text">
+        </v-text-field>
         <v-btn @click="save">
             Save
         </v-btn>
@@ -12,7 +13,6 @@
 
 <script>
     import {sendMessage} from 'util/ws'
-
     export default {
         props: ['messages', 'messageAttr'],
         data() {

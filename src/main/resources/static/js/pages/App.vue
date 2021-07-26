@@ -24,7 +24,7 @@
     import {addHandler} from 'util/ws'
     import {getIndex} from 'util/collections'
 
-            // let frontendData = indexedDB
+    // let frontendData = indexedDB
     export default {
         components: {
             MessagesList
@@ -37,7 +37,7 @@
         },
         created() {
             addHandler(data => {
-               let index = getIndex(this.messages, data.id)
+                let index = getIndex(this.messages, data.id)
                 if (index > -1) {
                     this.messages.splice(index, 1, data)
                 } else {

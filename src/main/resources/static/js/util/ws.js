@@ -6,10 +6,9 @@ const handlers = []
 
 export function connect() {
     const socket = new SockJS('/gs-guide-websocket')
-    stompClient = Stomp.over(socket)
-    // stompClient = Stomp.over(() => {
-    //     return socket;
-    // })
+    stompClient = Stomp.over(() => {
+        return socket;
+    })
     // stompClient.reconnect_delay = 5000
     stompClient.debug = () => {}
     stompClient.connect({}, frame => {
