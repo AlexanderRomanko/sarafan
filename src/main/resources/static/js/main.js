@@ -5,7 +5,6 @@ import App from 'pages/App.vue'
 import {connect} from "./util/ws"
 import 'vuetify/dist/vuetify.min.css'
 
-// let frontendData = indexedDB
 if (frontendData.profile) {
     connect()
 }

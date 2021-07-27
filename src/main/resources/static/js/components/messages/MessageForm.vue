@@ -36,7 +36,7 @@
                 }
 
                 if (this.id) {
-                    this.$resource('/message{/id}').update(message).then(result =>
+                    messagesApi.update(message).then(result =>
                         result.json().then(data => {
                             const index = this.messages.findIndex(item => item.id === data.id);
                             this.messages.splice(index, 1, data)
