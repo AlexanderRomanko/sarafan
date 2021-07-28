@@ -35,7 +35,7 @@
         },
         created() {
             addHandler(data => {
-                if (data.ObjectType === 'MESSAGE') {
+                if (data.objectType === 'MESSAGE') {
                     const index = this.messages.findIndex(item => item.id === data.body.id)
                     switch (data.eventType) {
                         case 'CREATE':
