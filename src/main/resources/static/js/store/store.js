@@ -34,7 +34,6 @@ export default new Vuex.Store({
             if (deletionIndex > -1) {
                 state.messages = [
                     ...state.messages.slice(0, deletionIndex),
-                    message,
                     ...state.messages.slice(deletionIndex + 1)
                 ]
             }

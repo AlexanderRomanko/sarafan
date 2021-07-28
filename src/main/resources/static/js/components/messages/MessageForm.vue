@@ -29,7 +29,7 @@
             }
         },
         methods: {
-            ...mapActions(['addMessageMutation', 'updateMessageMutation']),
+            ...mapActions(['addMessageAction', 'updateMessageAction']),
             save() {
                 const message = {
                     id: this.id,
@@ -37,9 +37,9 @@
                 }
 
                 if (this.id) {
-                    this.updateMessageMutation(message)
+                    this.updateMessageAction(message)
                 } else {
-                    this.addMessageMutation(message)
+                    this.addMessageAction(message)
                 }
                 this.text = ''
                 this.id = ''
