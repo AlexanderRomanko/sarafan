@@ -1,5 +1,5 @@
 <template>
-    <v-layout align-space-around justify-start column>
+    <v-layout v-if="profile" align-space-around justify-start column>
         <message-form :messageAttr="message"></message-form>
         <message-row v-for="message in sortedMessages"
                      :key="message.id"
@@ -10,7 +10,7 @@
 </template>
 
 <script>
-    import { mapGetters } from 'vuex'
+    import { mapGetters, mapState } from 'vuex'
     import MessageRow from 'components/messages/MessageRow.vue'
     import MessageForm from 'components/messages/MessageForm.vue'
 
@@ -24,7 +24,7 @@
                 message: null
             }
         },
-        computed: mapGetters(['sortedMessages']),
+        computed: {...mapGetters(['sortedMessages']), ...mapState(['profile'])},
         methods: {
             editMessage(message) {
                 this.message = message
