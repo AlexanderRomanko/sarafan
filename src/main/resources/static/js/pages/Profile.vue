@@ -9,7 +9,7 @@
                     </v-flex>
                     <v-flex class="px-1">
                         <v-layout column>
-                            <v-flex>{{profile.name}}</v-flex>
+                            <v-flex>{{profile.fullName}}</v-flex>
                             <v-flex>{{profile.locale}}</v-flex>
                             <v-flex>{{profile.gender}}</v-flex>
                             <v-flex>{{profile.email}}</v-flex>
