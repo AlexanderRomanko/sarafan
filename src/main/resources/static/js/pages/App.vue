@@ -2,8 +2,11 @@
     <v-app>
         <v-app-bar app>
             <v-toolbar-title>Sarafan</v-toolbar-title>
+            <v-btn text v-if="profile" :disabled="$route.path === '/'"
+                   @Click="showMessages">Messages</v-btn>
             <v-spacer></v-spacer>
-            <span v-if="profile">{{profile.attributes.name}}</span>
+            <v-btn v-if="profile" :disabled="$route.path === '/profile'"
+                   @Click="showProfile">{{profile.fullName}}</v-btn>
             <v-btn v-if="profile" icon href="/logout">
                 <v-icon>mdi-logout</v-icon>
             </v-btn>
@@ -20,7 +23,15 @@
 
     export default {
         computed: mapState(['profile']),
-        methods: mapMutations(['addMessageMutation', 'updateMessageMutation', 'removeMessageMutation']),
+        methods: {
+            ...mapMutations(['addMessageMutation', 'updateMessageMutation', 'removeMessageMutation']),
+            showMessages() {
+                this.$router.push('/')
+            },
+            showProfile() {
+                this.$router.push('/profile')
+            }
+        },
         created() {
             addHandler(data => {
                 if (data.objectType === 'MESSAGE') {
