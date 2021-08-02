@@ -41,6 +41,11 @@
                     console.error('Looks like the object type is unknown "${data.objectType}"')
                 }
             })
+        },
+        beforeMount() {
+            if (!this.profile) {
+                this.$router.replace('/auth')
+            }
         }
     };
 </script>

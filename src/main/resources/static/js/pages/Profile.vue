@@ -5,15 +5,15 @@
                 <div class="title mb-3">User profile</div>
                 <v-layout row justify-space-between>
                     <v-flex class="px-1">
-                        <v-img :src="profile.attributes.picture"></v-img>
+                        <v-img :src="profile.picture"></v-img>
                     </v-flex>
                     <v-flex class="px-1">
                         <v-layout column>
-                            <v-flex>{{profile.fullname}}</v-flex>
-                            <v-flex>{{profile.attributes.locale}}</v-flex>
+                            <v-flex>{{profile.name}}</v-flex>
+                            <v-flex>{{profile.locale}}</v-flex>
                             <v-flex>{{profile.gender}}</v-flex>
                             <v-flex>{{profile.email}}</v-flex>
-                            <v-flex>{{profile.attributes.lastVisit}}</v-flex>
+                            <v-flex>{{profile.attributes.exp}}</v-flex>
                         </v-layout>
                     </v-flex>
                 </v-layout>
