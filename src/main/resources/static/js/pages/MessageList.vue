@@ -1,12 +1,14 @@
 <template>
-    <v-layout v-if="profile" align-space-around justify-start column>
-        <message-form :messageAttr="message"></message-form>
-        <message-row v-for="message in sortedMessages"
-                     :key="message.id"
-                     :message="message"
-                     :editMessage="editMessage">
-        </message-row>
-    </v-layout>
+    <v-container>
+        <v-layout v-if="profile" align-space-around justify-start column>
+            <message-form :messageAttr="message"></message-form>
+            <message-row v-for="message in sortedMessages"
+                         :key="message.id"
+                         :message="message"
+                         :editMessage="editMessage">
+            </message-row>
+        </v-layout>
+    </v-container>
 </template>
 
 <script>
