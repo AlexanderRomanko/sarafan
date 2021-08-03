@@ -2,6 +2,10 @@ package com.example.sarafan.config;
 
 import com.example.sarafan.entity.User;
 import com.example.sarafan.repository.UserRepository;
+import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
+import org.springframework.boot.autoconfigure.security.oauth2.resource.PrincipalExtractor;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -14,11 +18,13 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
+import java.util.Map;
 
 
-@Component
+@Configuration
 @EnableWebSecurity
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+//@EnableOAuth2Sso
+public class WebSecurityConfig<PrincipalExtractor> extends WebSecurityConfigurerAdapter {
 
     private final UserRepository userRepository;
 
@@ -44,15 +50,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return userRequest -> {
             OidcUser oidcUser = new OidcUserService().loadUser(userRequest);
             String googleId = (String) oidcUser.getAttributes().get("sub");
-            User user = new User();
-            user.setId(googleId);
-            user.setName(oidcUser.getFullName());
-            user.setUserpic(oidcUser.getPicture());
-            user.setEmail(oidcUser.getEmail());
-            user.setGender(oidcUser.getGender());
-            user.setLocale(oidcUser.getLocale());
-            user.setLastVisit(LocalDateTime.now());
-            userRepository.save(user);
+            User existingUser = userRepository.findById(googleId).orElseGet(() -> {
+                User user = new User();
+                user.setId(googleId);
+                user.setName(oidcUser.getFullName());
+                user.setUserpic(oidcUser.getPicture());
+                user.setEmail(oidcUser.getEmail());
+                user.setGender(oidcUser.getGender());
+                user.setLocale(oidcUser.getLocale());
+                return user;
+            });
+            existingUser.setLastVisit(LocalDateTime.now());
+            userRepository.save(existingUser);
             return oidcUser;
         };
     }

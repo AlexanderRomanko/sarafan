@@ -15,6 +15,7 @@ public class UserService {
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
+
 //
 //    public UserDto create(User user) throws UserAlreadyExists {
 //        if (userRepository.findByUsername(user.getUsername()) != null) {

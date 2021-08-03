@@ -1,8 +1,11 @@
 package com.example.sarafan.controller;
 
+import com.example.sarafan.entity.User;
 import com.example.sarafan.repository.MessageRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.OAuth2AuthenticatedPrincipal;
+import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,7 +28,7 @@ public class MainController {
     }
 
     @GetMapping
-    public String main(@AuthenticationPrincipal OAuth2User oAuth2User, Model model) {
+    public String main(@AuthenticationPrincipal OidcUser oAuth2User, Model model) {
         HashMap<Object, Object> data = new HashMap<>();
         if (oAuth2User != null) {
             data.put("profile", oAuth2User);
